@@ -23,18 +23,39 @@
   (global-set-key (kbd "C-c b")   'counsel-bookmark)
   (global-set-key (kbd "C-x C-b") 'counsel-switch-buffer))
 
+;; Enable undo-tree as well, hook it to Evil.
+(use-package undo-tree
+   :after evil
+   :config
+   (setq undo-tree-history-directory-alist
+	 '(("." . "~/.emacs.d/undo"))) ;; Prevent cluttering.
+   (evil-set-undo-system 'undo-tree)
+   (global-undo-tree-mode 1))
+
 ;; Enable Keychord, as well as the JJ binding for Evil.
 (use-package key-chord
+  :after evil
   :config
   (setq key-chord-two-keys-delay 0.25)
   (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
   (key-chord-mode 1))
+
+;; On Evil, also set D to the black hole register.
+(defun bb/evil-delete (orig-fn beg end &optional type _ &rest args)
+    (apply orig-fn beg end type ?_ args))
+(advice-add 'evil-delete :around 'bb/evil-delete)
+
+;; Configure visual lines and line truncation.
+(global-visual-line-mode 1)
+(add-hook 'prog-mode-hook
+	  (lambda () (visual-line-mode -1) (setq truncate-lines 1)))
 
 ;; Enable Smartparens (bracket pairing) and Rainbow Delimiters.
 (use-package smartparens
   :config
   (add-hook 'prog-mode-hook #'smartparens-mode)
   (add-hook 'foo-mode-hook #'smartparens-mode))
+
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
@@ -53,6 +74,9 @@
 
 ;; Enable number lines.
 (add-hook 'prog-mode-hook #'linum-mode)
+
+;; Set font to SF Mono.
+(set-face-attribute 'default nil :font "Liga SFMono Nerd Font" :height 124)
 
 ;; Set to NANO theme (Material Light + Nord).
 (straight-use-package 'nano-theme)

@@ -31,17 +31,10 @@
 (tooltip-mode -1)
 (tool-bar-mode -1)
 
-;; Install and enable Evil, add undo-tree to go with it.
+;; Install and enable Evil.
 (use-package evil
  :config
- (evil-mode 1)
- (use-package undo-tree
-   :after evil
-   :config
-   (setq undo-tree-history-directory-alist
-	 '(("." . "~/.emacs.d/undo"))) ;; Prevent cluttering.
-   (evil-set-undo-system 'undo-tree)
-   (global-undo-tree-mode 1)))
+ (evil-mode 1))
 
 ;; Disable the suspend binding.
 (global-unset-key (kbd "C-z"))
