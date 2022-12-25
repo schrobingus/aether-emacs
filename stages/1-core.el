@@ -22,6 +22,9 @@
 ;; Bind CMD to CTRL. (disable elsewhere from MacOS)
 (setq mac-command-modifier 'control)
 
+;; Disable the splash screen.
+(setq initial-scratch-message nil)
+
 ;; Disable auto save.
 (auto-save-mode -1)
 

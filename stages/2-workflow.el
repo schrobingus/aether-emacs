@@ -1,16 +1,27 @@
+;; Enable Flycheck mode.
+(use-package flycheck
+  :config
+  (global-flycheck-mode 1))
+
+;; Enable company mode.
+(use-package company
+  :config
+  (add-hook 'prog-mode-hook #'company-mode))
+
 ;; Use LSP.
 (use-package lsp-mode
   :config
   (use-package lsp-ui
     :after lsp))
 
-;; Enable auto completion.
-;; TODO: Decide between auto-complete and company-mode.
-(use-package auto-complete
+;; Enable Projectile for Emacs.
+(use-package projectile
   :config
-  (ac-config-default))
+  (setq projectile-completion-system 'ivy)
+  (projectile-mode 1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
-;; Enable Ivy.
+;; Enable Ivy and Counsel.
 (use-package ivy
   :config
   (straight-use-package 'counsel)
@@ -50,12 +61,26 @@
 (add-hook 'prog-mode-hook
 	  (lambda () (visual-line-mode -1) (setq truncate-lines 1)))
 
-;; Enable Smartparens (bracket pairing) and Rainbow Delimiters.
+;; Enable Smartparens (bracket pairing).
 (use-package smartparens
   :config
+  (sp-local-pair 'emacs-lisp-mode "'" "'" :actions nil)
   (add-hook 'prog-mode-hook #'smartparens-mode)
   (add-hook 'foo-mode-hook #'smartparens-mode))
 
+;; Enable and configure the TODO highlighting package.
+(use-package hl-todo
+  :config
+  (setq hl-todo-keyword-faces
+	'(("TODO"   . "#EBCB8B")
+	  ("FIXME"  . "#BF616A")
+	  ("DEBUG"  . "#A3BE8C")
+	  ("STUB"   . "#B48EAD")
+	  ("GOTCHA" . "#8FBCBB")
+	  ("NOTE"   . "#81A1C1")))
+  (add-hook 'prog-mode-hook #'hl-todo-mode))
+
+;; Also enable and configure rainbow delimiters.
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
@@ -67,10 +92,15 @@
    '(rainbow-delimiters-depth-4-face ((t (:inherit rainbow-delimiters-base-face :foreground "#B48EAD"))))
    '(rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :foreground "#BF616A"))))))
 
+(use-package highlight-indent-guides
+  :config
+  (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
+  (custom-set-variables '(highlight-indent-guides-method 'character)))
+
 ;; Enable Rainbow Mode (highlight colors.)
 (use-package rainbow-mode
   :config
-  (rainbow-mode 1))
+  (add-hook 'prog-mode-hook #'rainbow-mode))
 
 ;; Enable number lines.
 (add-hook 'prog-mode-hook #'linum-mode)
@@ -78,16 +108,26 @@
 ;; Set font to SF Mono.
 (set-face-attribute 'default nil :font "Liga SFMono Nerd Font" :height 124)
 
+;; Set macOS settings.
+(use-package ns-auto-titlebar
+  :config
+  (when (eq system-type 'darwin) (ns-auto-titlebar-mode)))
+
 ;; Set to NANO theme (Material Light + Nord).
 (straight-use-package 'nano-theme)
+;;(straight-use-package 'nord-theme)
 (require 'nano-theme)
 (load-theme 'nano-dark t)
+;;(load-theme 'nano-light t)
+;;(load-theme 'nord t)
 
 ;; Utilize frame to edit some settings.
 (setq default-frame-alist
       (append (list
-               '(vertical-scroll-bars . nil) ; Disables vertical scroll bars.
-               '(internal-border-width . 16) ; Adds padding to Emacs (take that StackOverflow!)
+	       '(width  . 138) ; Default width.
+	       '(height . 48)  ; Default height.
+	       '(vertical-scroll-bars  . nil) ; Disables vertical scroll bars.
+               '(internal-border-width . 16)  ; Adds padding to Emacs (take that StackOverflow!)
                '(left-fringe    . 8) ; Add some fringe padding to the left.
                '(right-fringe   . 8) ; Likewise to the right.
 	       '(line-spacing   . 0.2)))) ; Finally, add some line spacing.
