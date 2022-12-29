@@ -21,6 +21,20 @@
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
+;; Make temporary, configure auto save and backup for Emacs.
+;;; (auto-save-mode -1) ;; Uncomment to disable autosave.
+(if (file-directory-p "~/.emacs.d/temporary")
+    nil
+  (progn
+    (make-directory "~/.emacs.d/temporary")
+    (make-directory "~/.emacs.d/temporary/auto-save")
+    (make-directory "~/.emacs.d/temporary/backup")
+    (make-directory "~/.emacs.d/temporary/undo")))
+(setq auto-save-file-name-transforms
+      `((".*" "~/.emacs.d/temporary/auto-save" t)))
+(setq backup-directory-alist
+      `((".*" . "~/.emacs.d/temporary/backup")))
+
 ;; Enable Ivy and Counsel.
 (use-package ivy
   :config
@@ -39,7 +53,7 @@
    :after evil
    :config
    (setq undo-tree-history-directory-alist
-	 '(("." . "~/.emacs.d/undo"))) ;; Prevent cluttering.
+	 '(("." . "~/.emacs.d/temporary/undo"))) ;; Prevent cluttering.
    (evil-set-undo-system 'undo-tree)
    (global-undo-tree-mode 1))
 
@@ -55,6 +69,12 @@
 (defun bb/evil-delete (orig-fn beg end &optional type _ &rest args)
     (apply orig-fn beg end type ?_ args))
 (advice-add 'evil-delete :around 'bb/evil-delete)
+
+;; Also enable Evil Commentary.
+(use-package evil-commentary
+  :after evil
+  :config
+  (evil-commentary-mode))
 
 ;; Configure visual lines and line truncation.
 (global-visual-line-mode 1)
@@ -76,7 +96,7 @@
 	  ("FIXME"  . "#BF616A")
 	  ("DEBUG"  . "#A3BE8C")
 	  ("STUB"   . "#B48EAD")
-	  ("GOTCHA" . "#8FBCBB")
+	  ("DONE"   . "#8FBCBB")
 	  ("NOTE"   . "#81A1C1")))
   (add-hook 'prog-mode-hook #'hl-todo-mode))
 
@@ -132,6 +152,9 @@
                '(right-fringe   . 8) ; Likewise to the right.
 	       '(line-spacing   . 0.2)))) ; Finally, add some line spacing.
 (setq linum-format " %d") ; Also add a space at the end of the line number.
+
+;; Set tab spacing to only 2.
+(setq default-tab-width 2)
 
 ;; Disable Evil in term-specific buffers.
 (add-hook 'term-mode-hook 'evil-local-mode)

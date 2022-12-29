@@ -26,7 +26,7 @@
 (setq initial-scratch-message nil)
 
 ;; Disable auto save.
-(auto-save-mode -1)
+;;;(auto-save-mode -1)
 
 ;; Disable unneeded UI elements.
 (menu-bar-mode 1) ; Only keep enabled on MacOS.
