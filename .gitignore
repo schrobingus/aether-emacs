@@ -1,5 +1,7 @@
 *.el\~
 */*.el\~
+ORGANIZATION.org
+stages-old/
 
 ac-comphist.dat
 auto-save-list

@@ -18,29 +18,3 @@
 (use-package straight
   :custom
   (straight-use-package-by-default t))
-
-;; Bind CMD to CTRL. (disable elsewhere from MacOS)
-(setq mac-command-modifier 'control)
-
-;; Disable the splash screen.
-(setq initial-scratch-message nil)
-
-;; Disable auto save.
-;;;(auto-save-mode -1)
-
-;; Disable unneeded UI elements.
-(menu-bar-mode 1) ; Only keep enabled on MacOS.
-(toggle-scroll-bar -1)
-(tooltip-mode -1)
-(tool-bar-mode -1)
-
-;; Install and enable Evil.
-(use-package evil
- :config
- (evil-mode 1))
-
-;; Disable the suspend binding.
-(global-unset-key (kbd "C-z"))
-
-;; Disable cl-related warnings.
-(setq byte-compile-warnings '(cl-functions))

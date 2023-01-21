@@ -1,3 +1,13 @@
+;; Enable Flycheck.
+(use-package flycheck
+  :config
+  (global-flycheck-mode 1))
+
+;; Enable LSP.
+(use-package lsp-mode)
+(use-package lsp-ui
+  :after lsp-mode)
+
 ;; Disable certain Flycheck checkers.
 (setq-default
  flycheck-disabled-checkers
@@ -6,6 +16,9 @@
    emacs-lisp emacs-lisp-checkdoc ;; Emacs Lisp
    markdown-markdownlint-cli markdown-mdl ;; Markdown
    ))
+
+
+;; The section below is reserved for adding language support.
 
 ;; For C#.
 (use-package csharp-mode
@@ -23,10 +36,6 @@
     :custom
     (flutter-sdk-path "/Users/brent/Sources/flutter"))
 
-;; For GDScript on Godot.
-(use-package gdscript-mode
-  :mode "\\.gd\\'")
-
 ;; For Lua.
 (use-package lua-mode
   :mode "\\.lua\\'")
@@ -38,10 +47,6 @@
 ; For Nix and NixOS.
 (use-package nix-mode
   :mode "\\.nix\\'")
-
-;; For Processing sketches.
-(use-package processing-mode
-  :mode "\\.pde\\'")
 
 ;; For Swift.
 (use-package swift-mode
