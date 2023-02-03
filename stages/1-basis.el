@@ -17,4 +17,5 @@
 (straight-use-package 'use-package)
 (use-package straight
   :custom
-  (straight-use-package-by-default t))
+  (straight-use-package-by-default t)
+  (use-package-always-ensure t))

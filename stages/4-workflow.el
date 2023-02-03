@@ -10,6 +10,14 @@
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
+;; Enable exec-path-from-shell, then enable Quickrun for code execution.
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+(use-package quickrun
+  :after exec-path-from-shell)
+
 ;; Enable undo-tree as well, hook it to Evil.
 (use-package undo-tree
   :config
@@ -22,7 +30,7 @@
   :config
   (straight-use-package 'counsel)
   (ivy-mode 1)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "M-x")     'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "C-c r")   'counsel-recentf)
   (global-set-key (kbd "C-c b")   'counsel-bookmark)
@@ -66,10 +74,20 @@
      ((t (:inherit rainbow-delimiters-base-face :foreground "#BF616A"))))))
 
 ;; Enable highlight guides.
-(use-package highlight-indent-guides
-  :config
-  (add-hook 'prog-mode-hook #'highlight-indent-guides-mode)
-  (custom-set-variables '(highlight-indent-guides-method 'character)))
+;; (use-package highlight-indent-guides
+  ;; :init
+  ;; (setq highlight-indent-guides-method 'character)
+  ;; (setq highlight-indent-guides-responsive t)
+  ;; :config
+  ;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode))
+;; (use-package highlight-indentation
+  ;; :init
+  ;; (setq highlight-indentation-blank-lines t)
+  ;; :config
+  ;; (set-face-background 'highlight-indentation-face "#3B4252")
+  ;; (set-face-background 'highlight-indentation-current-column-face "#4C566A")
+  ;; (add-hook 'prog-mode-hook #'highlight-indentation-mode))
+  ;; (add-hook 'prog-mode-hook #'highlight-indentation-current-column-mode))
 
 ;; Enable Rainbow Mode (highlight colors.)
 (use-package rainbow-mode

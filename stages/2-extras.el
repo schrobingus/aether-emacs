@@ -7,12 +7,19 @@
 (setq initial-scratch-message nil) ;; Splash screen.
 
 ;; Enable line numbers.
-(add-hook 'prog-mode-hook #'linum-mode)
-(setq linum-format " %d") ; Also add a space at the end of the line number.
+;; (add-hook 'prog-mode-hook #'line-number-mode)
+;; (setq line-number-format " %d") ; Also add a space at the end of the line number.
 
 ;; Add some better scrolling.
-(pixel-scroll-mode 1)
+;; (pixel-scroll-mode 1)
 (setq scroll-step 1)
+(setq hscroll-step 1)
+
+;; Adjust some values for performance.
+(setq redisplay-dont-pause nil)
+;;(setq font-lock-maximum-decoration nil)
+(setq gc-cons-threshold 512000000)
+(setq read-process-output-max (* 2048 2048))
 
 ;; Configure window dividers.
 (setq-default window-divider-default-bottom-width 2)

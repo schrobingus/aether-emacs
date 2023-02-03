@@ -4,9 +4,16 @@
   (global-flycheck-mode 1))
 
 ;; Enable LSP.
-(use-package lsp-mode)
+(use-package lsp-mode
+  :config
+  (setq lsp-idle-delay 0.500)
+  (setq lsp-headerline-breadcrumb-enable nil))
 (use-package lsp-ui
   :after lsp-mode)
+
+;; Add some debug features with DAP mode.
+(use-package dap-mode
+  :ensure t)
 
 ;; Disable certain Flycheck checkers.
 (setq-default
@@ -15,6 +22,7 @@
    c/c++-clang ;; Clang
    emacs-lisp emacs-lisp-checkdoc ;; Emacs Lisp
    markdown-markdownlint-cli markdown-mdl ;; Markdown
+   dart
    ))
 
 
@@ -26,15 +34,19 @@
 
 ;; For Dart, add Flutter.el.
 (use-package dart-mode
-  :mode "\\.dart\\'"
-  :hook ((dart-mode . lsp)
-	 (dart-mode . flutter-test-mode)))
+  :mode "\\.dart\\'")
+(use-package lsp-dart
+  :after dart-mode
+  :hook (dart-mode . lsp))
 (use-package flutter
     :after dart-mode
     :bind (:map dart-mode-map
 		("C-M-x" . #'flutter-run-or-hot-reload))
     :custom
-    (flutter-sdk-path "/Users/brent/Sources/flutter"))
+    (flutter-sdk-path "/Users/brent/Sources/flutter")
+    :config
+    (setq lsp-dart-flutter-widget-guides nil)
+    :hook (dart-mode . flutter-test-mode))
 
 ;; For Lua.
 (use-package lua-mode
