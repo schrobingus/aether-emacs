@@ -25,6 +25,9 @@
     `((t :background "#3B4252"))
     "Line / column number face for modeline.")
 
+  ;; Set padding of line.
+  (setq-default mini-modeline-right-padding 2)
+
   ;; These are the different faces for the Evil indicators.
   (add-hook 'evil-normal-state-entry-hook
             (lambda ()

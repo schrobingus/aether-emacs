@@ -27,14 +27,26 @@
 
 ;; Enable Ivy and Counsel.
 (use-package ivy
-  :config
+  :init
   (straight-use-package 'counsel)
+  :config
   (ivy-mode 1)
   (global-set-key (kbd "M-x")     'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "C-c r")   'counsel-recentf)
   (global-set-key (kbd "C-c b")   'counsel-bookmark)
   (global-set-key (kbd "C-x C-b") 'counsel-switch-buffer))
+
+;; Enable Prescient.el for Ivy and Company.
+(use-package prescient
+  :after ivy company
+  :config
+  (use-package ivy-prescient
+    :config
+    (ivy-prescient-mode 1))
+  (use-package company-prescient
+    :config
+    (company-prescient-mode 1)))
 
 ;; Enable Smartparens (bracket pairing).
 (use-package smartparens
@@ -74,10 +86,10 @@
      ((t (:inherit rainbow-delimiters-base-face :foreground "#BF616A"))))))
 
 ;; Enable highlight guides.
-;; (use-package highlight-indent-guides
-  ;; :init
-  ;; (setq highlight-indent-guides-method 'character)
-  ;; (setq highlight-indent-guides-responsive t)
+(use-package highlight-indent-guides
+  :init
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-responsive t))
   ;; :config
   ;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode))
 ;; (use-package highlight-indentation

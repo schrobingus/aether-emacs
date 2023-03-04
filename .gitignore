@@ -1,13 +1,17 @@
 *.el\~
 */*.el\~
-ORGANIZATION.org
-stages-old/
 
 ac-comphist.dat
 auto-save-list
+.cache
+eclipse.jdt.ls
 eshell
+games
+.lsp-session-v*
+.lsp-session-v1
 projectile-bookmarks.eld
 recentf
 straight
 temporary
 var
+workspace

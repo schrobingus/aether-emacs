@@ -6,6 +6,9 @@
 (global-unset-key (kbd "C-z")) ;; Suspend binding.
 (setq initial-scratch-message nil) ;; Splash screen.
 
+;; Disable default start screen for Emacs.
+(setq inhibit-startup-screen t)
+
 ;; Enable line numbers.
 ;; (add-hook 'prog-mode-hook #'line-number-mode)
 ;; (setq line-number-format " %d") ; Also add a space at the end of the line number.

@@ -20,17 +20,26 @@
  flycheck-disabled-checkers
  '(
    c/c++-clang ;; Clang
-   emacs-lisp emacs-lisp-checkdoc ;; Emacs Lisp
+   emacs-lisp-checkdoc emacs-lisp ;; Emacs Lisp
    markdown-markdownlint-cli markdown-mdl ;; Markdown
-   dart
    ))
 
 
 ;; The section below is reserved for adding language support.
 
+;; For Clojure.
+(use-package clojure-mode
+  :mode (("\\.clj\\'"  . clojure-mode)
+	 ("\\.cljs\\'" . clojurescript-mode)
+	 ("\\.cljc\\'" . clojurec-mode))
+  :hook ((clojure-mode       . lsp)
+	 (clojurescript-mode . lsp)
+	 (clojurec-mode      . lsp)))
+
 ;; For C#.
 (use-package csharp-mode
-  :mode "\\.cs\\'")
+  :mode "\\.cs\\'"
+  :hook (csharp-mode . lsp))
 
 ;; For Dart, add Flutter.el.
 (use-package dart-mode
@@ -48,9 +57,20 @@
     (setq lsp-dart-flutter-widget-guides nil)
     :hook (dart-mode . flutter-test-mode))
 
-;; For Lua.
+;; For Java.
+(use-package lsp-java
+  :config
+  (add-hook 'java-mode-hook 'lsp))
+
+;; For JavaScript.
+(add-hook 'js-mode-hook 'lsp)
+
+;; For Lua and Fennel.
 (use-package lua-mode
   :mode "\\.lua\\'")
+(use-package fennel-mode
+  :after lua-mode
+  :mode "\\.fnl\\'")
 
 ;; For Markdown.
 (use-package markdown-mode
