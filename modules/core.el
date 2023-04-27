@@ -1,4 +1,5 @@
-;; Bootstrap straight.el, disable package.el.
+;; Bootstrap straight.el, replacing package.el.
+(setq package-enable-at-startup nil)
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -11,9 +12,8 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-(setq package-enable-at-startup nil)
 
-;; Install use-package, and hook straight.el to it.
+;; Install use-package and configure it with straight.el.
 (straight-use-package 'use-package)
 (use-package straight
   :custom

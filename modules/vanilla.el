@@ -40,6 +40,9 @@
 (add-hook 'prog-mode-hook
 	  (lambda () (visual-line-mode -1) (setq truncate-lines 1)))
 
+;; Circumvent the need for SVG support.
+(add-to-list 'image-types 'svg)
+
 ;; Configure autosave.
 (auto-save-mode 1)
 (if (file-directory-p "~/.emacs.d/temporary")
@@ -53,14 +56,3 @@
       `((".*" "~/.emacs.d/temporary/auto-save" t)))
 (setq backup-directory-alist
       `((".*" . "~/.emacs.d/temporary/backup")))
-
-;; macOS-specific settings.
-(when
-    (eq system-type 'darwin)
-  (progn
-    (use-package ns-auto-titlebar
-      :config
-      (ns-auto-titlebar-mode)) ;; Automatic titlebar mode.
-    (setq mac-command-modifier 'control) ;; Rebind CMD to CTRL.
-    (menu-bar-mode 1) ;; Re-enable menu bar.
-    ))
