@@ -12,3 +12,4 @@
 (load-module "pkgs/syntax")   ;;; syntax checking and lsp
 (load-module "pkgs/theming")  ;;; theming and colors for emacs
 (load-module "pkgs/modeline")  ;;; modeline configuration
+(load-module "pkgs/org")  ;;; org mode setup

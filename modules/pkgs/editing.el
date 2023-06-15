@@ -13,6 +13,17 @@
 
 ;; Enable rainbow delimiters.
 (use-package rainbow-delimiters
+  :init
+  (setq rainbow-delimiters-max-face-count 3)
+  (defun base16-rainbow-delimiters-update ()
+    (interactive)
+    (custom-set-faces
+     `(rainbow-delimiters-depth-1-face
+       ((t (:inherit rainbow-delimiters-base-face :foreground ,(base16-color 'base08)))))
+     `(rainbow-delimiters-depth-2-face
+       ((t (:inherit rainbow-delimiters-base-face :foreground ,(base16-color 'base03)))))
+     `(rainbow-delimiters-depth-3-face
+       ((t (:inherit rainbow-delimiters-base-face :foreground ,(base16-color 'base0E)))))))
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 

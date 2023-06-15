@@ -7,6 +7,7 @@
    '(
      c/c++-clang   ;;; clang
      emacs-lisp-checkdoc emacs-lisp   ;;; emacs lisp
+     html  ;;; html
      markdown-markdownlint-cli markdown-mdl  ;;; markdown
      ))
   :config

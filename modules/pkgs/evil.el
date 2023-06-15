@@ -56,6 +56,9 @@
   (global-evil-surround-mode 1))
 
 ;; Set some Counsel related bindings.
-(evil-global-set-key 'normal "bf" 'counsel-switch-buffer)
-(evil-global-set-key 'normal "fb" 'counsel-bookmark)
-(evil-global-set-key 'normal "bf" 'counsel-recentf)
+(evil-leader/set-key "bf" 'counsel-switch-buffer)
+(evil-leader/set-key "fb" 'counsel-bookmark)
+(evil-leader/set-key "bf" 'counsel-recentf)
+;; (evil-global-set-key 'normal "bf" 'counsel-switch-buffer)
+;; (evil-global-set-key 'normal "fb" 'counsel-bookmark)
+;; (evil-global-set-key 'normal "bf" 'counsel-recentf)
